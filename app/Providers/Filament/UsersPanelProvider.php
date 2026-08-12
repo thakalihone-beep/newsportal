@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -18,32 +19,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class AdminPanelProvider extends PanelProvider
+class UsersPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('users')
+            ->path('users')
             ->login()
-            ->registration()
-            ->passwordReset()
-            ->authGuard('admin')
-        
             ->colors([
-                'primary' => '#1E3A8A',
+                'primary' => Color::Amber,
             ])
-            ->authPasswordBroker('admins')
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->discoverResources(in: app_path('Filament/Users/Resources'), for: 'App\Filament\Users\Resources')
+            ->discoverPages(in: app_path('Filament/Users/Pages'), for: 'App\Filament\Users\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Users/Widgets'), for: 'App\Filament\Users\Widgets')
             ->widgets([
-                // AccountWidget::class,
-                // FilamentInfoWidget::class,
+                AccountWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -61,4 +56,3 @@ class AdminPanelProvider extends PanelProvider
             ]);
     }
 }
-

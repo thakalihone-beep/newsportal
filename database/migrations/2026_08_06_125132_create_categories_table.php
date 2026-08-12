@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->string('slug');
             $table->boolean('status')->default(true);
             $table->string('meta_title');
@@ -28,6 +28,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn([
+                'title',
+                'slug',
+                'status',
+                'meta_title',
+                'meta_description',
+                'meta_keywords',
+            ]);
+        });
     }
 };
