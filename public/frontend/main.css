@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&display=swap');
+
+:root {
+    --font-heading: 'Noto Sans Devanagari', sans-serif;
+    --font-body: 'Noto Sans Devanagari', sans-serif;
+
+    /* Main Brand */
+    --primary: #1E293B;
+    --secondary: #2563EB;
+
+    /* Text */
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-light: #F8FAFC;
+    --text-muted: #64748B;
+
+    /* Backgrounds */
+    --bg-light: #F8FAFC;
+    --bg-white: #FFFFFF;
+    --bg-secondary: #F1F5F9;
+
+    /* Borders */
+    --border: #E2E8F0;
+    --border-dark: #CBD5E1;
+
+    /* Links */
+    --link: #2563EB;
+    --link-hover: #1D4ED8;
+
+    /* News Accent */
+    --accent: #DC2626;
+
+    /* Status */
+    --success: #16A34A;
+    --warning: #D97706;
+
+    /* UI */
+    --shadow: rgba(15, 23, 42, 0.10);
+    --shadow-hover: rgba(15, 23, 42, 0.18);
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+}
+
+.container {
+    width: 90%;
+    margin:auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+.card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow);
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px var(--shadow-hover);
+}
