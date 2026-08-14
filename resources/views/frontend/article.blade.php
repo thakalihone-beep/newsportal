@@ -63,65 +63,67 @@
                 {{-- Articles --}}
                 <div class="space-y-5 md:col-span-2">
 
-                    @foreach ($article->articles()->latest()->get() as $article)
+                    @foreach ($article->categories as $category)
+                        @foreach ($category->articles()->where('id', '!=', $article->id)->latest()->limit(3)->get() as $relatedArticle)
 
-                        <article
-                            class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                            <article
+                                class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
 
-                            {{-- Image --}}
-                            <a href="#" class="shrink-0 overflow-hidden rounded-lg">
+                                {{-- Image --}}
+                                <a href="#" class="shrink-0 overflow-hidden rounded-lg">
 
-                                <img
-                                    src="{{ asset(Storage::url($article->image)) }}"
-                                    alt="{{ $article->title }}"
-                                    class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
-
-                            </a>
-
-
-                            {{-- Content --}}
-                            <div class="ml-4 flex min-w-0 flex-1 flex-col justify-center">
-
-                                {{-- Date / Category --}}
-                                <div class="mb-1 flex items-center gap-2 text-xs text-gray-400">
-
-                                    <span>
-                                        {{ $category->title }}
-                                    </span>
-
-                                    <span>•</span>
-
-                                    <span>
-                                        {{ $article->created_at->format('M d, Y') }}
-                                    </span>
-
-                                </div>
-
-
-                                {{-- Title --}}
-                                <a href="#">
-
-                                    <h3
-                                        class="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-(--secondary)">
-
-                                        {{ $article->name }}
-
-                                    </h3>
+                                    <img
+                                        src="{{ asset(Storage::url($relatedArticle->image)) }}"
+                                        alt="{{ $relatedArticle->title }}"
+                                        class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
 
                                 </a>
 
 
-                                {{-- Description --}}
-                                <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-500">
+                                {{-- Content --}}
+                                <div class="ml-4 flex min-w-0 flex-1 flex-col justify-center">
 
-                                    {{ $article->description }}
+                                    {{-- Date / Category --}}
+                                    <div class="mb-1 flex items-center gap-2 text-xs text-gray-400">
 
-                                </p>
+                                        <span>
+                                            {{ $category->title }}
+                                        </span>
 
-                            </div>
+                                        <span>•</span>
 
-                        </article>
+                                        <span>
+                                            {{ $relatedArticle->created_at->format('M d, Y') }}
+                                        </span>
 
+                                    </div>
+
+
+                                    {{-- Title --}}
+                                    <a href="#">
+
+                                        <h3
+                                            class="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-(--secondary)">
+
+                                            {{ $relatedArticle->name }}
+
+                                        </h3>
+
+                                    </a>
+
+
+                                    {{-- Description --}}
+                                    <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-500">
+
+                                        {{ $relatedArticle->description }}
+
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+                        @endforeach
                     @endforeach
 
                 </div>
