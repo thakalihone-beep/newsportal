@@ -8,3 +8,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[PageController::class,'home'])->name('home');
+Route::get('/category/{slug}',[PageController::class, "category"])->name("category");
+Route::get('/article/{slug}',[PageController::class, "article"])->name("article");
