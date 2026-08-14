@@ -31,8 +31,10 @@
     </div>
 
 
-    <!-- ================= NAVIGATION ================= -->
-    <nav class="sticky top-0 z-50 bg-[var(--primary)] shadow-md">
+</header>
+
+<!-- ================= NAVIGATION ================= -->
+<nav class="sticky top-0 z-50 bg-[var(--primary)] shadow-md">
 
         <!-- ================= DESKTOP NAV ================= -->
         <div class="container mx-auto px-4 hidden md:flex items-center justify-between gap-4">
@@ -93,9 +95,7 @@
 
         </div>
 
-    </nav>
-
-</header>
+</nav>
 
 
 <!-- ================= MOBILE DRAWER ================= -->
