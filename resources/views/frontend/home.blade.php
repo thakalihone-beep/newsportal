@@ -21,7 +21,7 @@
 
                 <div class="card p-4 ">
 
-                    <a href="{{route('article', $latest_article->slug)}}">
+                    <a href="{{route('article', $article->slug)}}">
                         <h1 class="text-2xl font-bold text-(--text-primary) md:text-3xl">
 
                         {{ $article->name }}
