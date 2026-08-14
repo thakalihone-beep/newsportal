@@ -64,7 +64,7 @@
                 <div class="space-y-5 md:col-span-2">
 
                     @foreach ($article->categories as $category)
-                        @foreach ($category->articles()->where('id', '!=', $article->id)->latest()->limit(3)->get() as $relatedArticle)
+                        @foreach ($category->articles()->where('articles.id', '!=', $article->id)->latest()->limit(3)->get() as $relatedArticle)
 
                             <article
                                 class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
