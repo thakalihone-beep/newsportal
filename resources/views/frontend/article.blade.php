@@ -7,6 +7,12 @@
             {{-- Category Navigation --}}
             <div class="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
+                <div>
+                    <span>
+                        प्रकाशित मितिः <span id="c_date"></span>
+                    </span>
+                </div>
+
                 <div class="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
 
                     {{-- Category Title --}}
@@ -19,7 +25,7 @@
                             </p>
 
                             <h1 class="text-2xl font-extrabold text-gray-900">
-                                {{ $article->title }}
+                                {{ $article->name }}
                             </h1>
                         </div>
                     </div>
@@ -65,15 +71,13 @@
 
                     @foreach ($article->categories as $category)
                         @foreach ($category->articles()->where('articles.id', '!=', $article->id)->latest()->limit(3)->get() as $relatedArticle)
-
                             <article
                                 class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
 
                                 {{-- Image --}}
                                 <a href="#" class="shrink-0 overflow-hidden rounded-lg">
 
-                                    <img
-                                        src="{{ asset(Storage::url($relatedArticle->image)) }}"
+                                    <img src="{{ asset(Storage::url($relatedArticle->image)) }}"
                                         alt="{{ $relatedArticle->title }}"
                                         class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
 
@@ -122,7 +126,6 @@
                                 </div>
 
                             </article>
-
                         @endforeach
                     @endforeach
 
@@ -133,19 +136,13 @@
                 <aside class="space-y-5">
 
                     @foreach ($advertise->take(1) as $ad)
-
-                        <a
-                            href="{{ $ad->redirect_link }}"
-                            target="_blank"
+                        <a href="{{ $ad->redirect_link }}" target="_blank"
                             class="group block overflow-hidden rounded-xl bg-white shadow-sm">
 
-                            <img
-                                src="{{ asset(Storage::url($ad->banner)) }}"
-                                alt="{{ $ad->company_name }}"
+                            <img src="{{ asset(Storage::url($ad->banner)) }}" alt="{{ $ad->company_name }}"
                                 class="w-full object-cover transition duration-300 group-hover:scale-[1.02]">
 
                         </a>
-
                     @endforeach
 
                 </aside>
@@ -155,5 +152,26 @@
         </div>
 
     </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const c_date = document.getElementById('c_date');
+
+        if (c_date && window.NepaliCalendar) {
+
+            const adDateString = @json($article->created_at->format('Y-m-d'));
+
+            const adDate = new Date(adDateString);
+
+            const bsDate = NepaliCalendar.adToBs(adDate);
+
+            const nepaliDate = NepaliCalendar.formatBs(bsDate, 'ne');
+
+            c_date.textContent = nepaliDate;
+        }
+
+    });
+</script>
 
 </x-frontend-layout>

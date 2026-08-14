@@ -1,49 +1,52 @@
 <x-frontend-layout>
 
-    <section class="bg-(--bg-light) py-8 md:py-12">
+    <section class="bg-[var(--bg-light)] py-8 md:py-12">
 
         <div class="container mx-auto px-4">
 
-            {{-- Category Navigation --}}
-            <div class="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            {{-- ================= CATEGORY HEADER ================= --}}
+            <div class="mb-8">
 
-                <div class="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex flex-col gap-4 border-b-2 border-[var(--secondary)] pb-3 sm:flex-row sm:items-end sm:justify-between">
 
                     {{-- Category Title --}}
                     <div class="flex items-center gap-3">
-                        <span class="h-8 w-1 rounded-full bg-(--secondary)"></span>
+
+                        <span class="h-10 w-1 rounded-full bg-[var(--secondary)]"></span>
 
                         <div>
-                            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
                                 Category
-                            </p>
+                            </span>
 
-                            <h1 class="text-2xl font-extrabold text-gray-900">
+                            <h1 class="mt-1 text-2xl font-extrabold leading-none text-gray-900 md:text-3xl">
                                 {{ $category->title }}
                             </h1>
                         </div>
+
                     </div>
 
+
                     {{-- Category Navigation --}}
-                    <nav class="flex flex-wrap items-center gap-2">
+                    <nav class="flex flex-wrap items-center gap-1">
 
                         <a href="#"
-                            class="rounded-full bg-(--bg-secondary) px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-(--secondary) hover:text-white">
+                            class="rounded-md bg-[var(--secondary)] px-3 py-2 text-sm font-semibold text-white transition hover:opacity-90">
                             सबै
                         </a>
 
                         <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
+                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
                             नयाँ
                         </a>
 
                         <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
+                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
                             चर्चित
                         </a>
 
                         <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
+                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
                             लोकप्रिय
                         </a>
 
@@ -51,98 +54,125 @@
 
                 </div>
 
-                {{-- Bottom Accent --}}
-                <div class="h-1 bg-(--secondary)"></div>
-
             </div>
 
 
-            {{-- Main Content --}}
-            <div class="grid gap-8 md:grid-cols-3">
-
-                {{-- Articles --}}
-                <div class="space-y-5 md:col-span-2">
-
-                    @foreach ($category->articles()->latest()->get() as $article)
-
-                        <a href="{{route('article',$article->slug)}}"
-                            class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-
-                            {{-- Image --}}
-                            <a href="#" class="shrink-0 overflow-hidden rounded-lg">
-
-                                <img
-                                    src="{{ asset(Storage::url($article->image)) }}"
-                                    alt="{{ $article->title }}"
-                                    class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
-
-                            </a>
+            {{-- ================= MAIN GRID ================= --}}
+            <div class="grid gap-8 lg:grid-cols-3">
 
 
-                            {{-- Content --}}
-                            <div class="ml-4 flex min-w-0 flex-1 flex-col justify-center">
+                {{-- ================= ARTICLES ================= --}}
+                <div class="space-y-4 lg:col-span-2">
 
-                                {{-- Date / Category --}}
-                                <div class="mb-1 flex items-center gap-2 text-xs text-gray-400">
+                    @forelse ($category->articles()->latest()->get() as $article)
 
-                                    <span>
-                                        {{ $category->title }}
-                                    </span>
+                        <article
+                            class="group overflow-hidden rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
 
-                                    <span>•</span>
+                            <a
+                                href="{{ route('article', $article->slug) }}"
+                                class="flex gap-4">
 
-                                    <span>
-                                        {{ $article->created_at->format('M d, Y') }}
-                                    </span>
+                                {{-- Image --}}
+                                <div class="shrink-0 overflow-hidden rounded-lg">
+
+                                    <img
+                                        src="{{ asset(Storage::url($article->image)) }}"
+                                        alt="{{ $article->name }}"
+                                        class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
 
                                 </div>
 
 
-                                {{-- Title --}}
-                                <a href="#">
+                                {{-- Content --}}
+                                <div class="flex min-w-0 flex-1 flex-col justify-center">
 
-                                    <h3
-                                        class="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-(--secondary)">
+                                    {{-- Meta --}}
+                                    <div class="mb-1.5 flex flex-wrap items-center gap-2 text-xs text-gray-400">
+
+                                        <span class="font-medium text-[var(--secondary)]">
+                                            {{ $category->title }}
+                                        </span>
+
+                                        <span>•</span>
+
+                                        <time datetime="{{ $article->created_at->toISOString() }}">
+                                            {{ $article->created_at->format('M d, Y') }}
+                                        </time>
+
+                                    </div>
+
+
+                                    {{-- Title --}}
+                                    <h2
+                                        class="line-clamp-2 text-base font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-[var(--secondary)] sm:text-lg">
 
                                         {{ $article->name }}
 
-                                    </h3>
-
-                                </a>
+                                    </h2>
 
 
-                                {{-- Description --}}
-                                <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-500">
+                                    {{-- Description --}}
+                                    <p class="mt-1.5 line-clamp-2 text-xs leading-relaxed text-gray-500 sm:text-sm">
 
-                                    {{ $article->description }}
+                                        {{ $article->description }}
 
-                                </p>
+                                    </p>
 
-                            </div>
+                                </div>
 
-                        </a>
+                            </a>
 
-                    @endforeach
+                        </article>
+
+                    @empty
+
+                        <div class="rounded-xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center">
+
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                कुनै समाचार भेटिएन
+                            </h2>
+
+                            <p class="mt-1 text-sm text-gray-500">
+                                यस श्रेणीमा हाल कुनै समाचार उपलब्ध छैन।
+                            </p>
+
+                        </div>
+
+                    @endforelse
 
                 </div>
 
 
-                {{-- Advertisement --}}
-                <aside class="space-y-5">
+                {{-- ================= ADVERTISEMENT ================= --}}
+                <aside class="lg:sticky lg:top-6 lg:self-start">
 
                     @foreach ($advertise->take(1) as $ad)
 
-                        <a
-                            href="{{ $ad->redirect_link }}"
-                            target="_blank"
-                            class="group block overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
-                            <img
-                                src="{{ asset(Storage::url($ad->banner)) }}"
-                                alt="{{ $ad->company_name }}"
-                                class="w-full object-cover transition duration-300 group-hover:scale-[1.02]">
+                            <div class="border-b border-gray-100 px-4 py-2">
 
-                        </a>
+                                <p class="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400">
+                                    Advertisement
+                                </p>
+
+                            </div>
+
+                            <a
+                                href="{{ $ad->redirect_link }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group block overflow-hidden">
+
+                                <img
+                                    src="{{ asset(Storage::url($ad->banner)) }}"
+                                    alt="{{ $ad->company_name }}"
+                                    class="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.02]">
+
+                            </a>
+
+                        </div>
 
                     @endforeach
 

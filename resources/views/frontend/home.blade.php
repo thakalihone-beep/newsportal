@@ -61,10 +61,11 @@
                     {{-- Articles Grid --}}
                     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 space-y-4">
                         @foreach ($category->articles()->latest()->limit(6)->get() as $article)
-                            <a href="{{route('article', $article->slug)}}" class="group flex overflow-hidden rounded-lg bg-white p-2 shadow-sm transition-shadow hover:shadow-md">
+                        <article class="group flex overflow-hidden rounded-lg bg-white p-2 shadow-sm transition-shadow hover:shadow-md">
+                            <a href="{{route('article', $article->slug)}}" >
 
                                 {{-- Image (Left) --}}
-                                <a href="#" class="shrink-0 overflow-hidden rounded-md">
+                                <a href="{{route('article', $article->slug)}}" class="shrink-0 overflow-hidden rounded-md">
                                     <img src="{{ asset(Storage::url($article->image)) }}"
                                          alt="{{ $article->title }}"
                                          class="h-24 w-28 object-cover transition duration-300 group-hover:scale-105 sm:h-28 sm:w-32">
@@ -74,7 +75,7 @@
                                 <div class="ml-3 flex flex-col justify-center">
 
                                     {{-- Title --}}
-                                    <a href="#">
+                                    <a href="{{route('article', $article->slug)}}">
                                         <h3 class="line-clamp-2 text-base font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-purple-900">
                                             {{ $article->name }}
                                         </h3>
@@ -88,6 +89,7 @@
                                 </div>
 
                             </a>
+                        </article>
                         @endforeach
                     </div>
 
@@ -126,7 +128,7 @@
                     <article class="group overflow-hidden rounded-xl border border-(--border) bg-(--bg-white) shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
 
                         <!-- Image -->
-                        <a href="#" class="relative block overflow-hidden">
+                        <a href="{{route('article', $article->slug)}}" class="relative block overflow-hidden">
                             <img src="{{ asset(Storage::url($article->image)) }}" alt="{{ $article->title }}"
                                 class="h-56 w-full object-cover transition duration-500 group-hover:scale-105">
 
@@ -155,7 +157,7 @@
 
                             <!-- Title -->
                             <h3 class="text-xl font-bold leading-snug text-(--text-primary) transition group-hover:text-(--secondary)">
-                                <a href="#">
+                                <a href="{{route('article', $article->slug)}}">
                                     {{ $article->title }}
                                 </a>
                             </h3>
@@ -166,7 +168,7 @@
                             </p>
 
                             <!-- Read More -->
-                            <a href="#" class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-(--secondary) transition hover:gap-3">
+                            <a href="{{route('article', $article->slug)}}" class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-(--secondary) transition hover:gap-3">
                                 पूरा पढ्नुहोस्
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
