@@ -1,149 +1,215 @@
 <x-frontend-layout>
 
-    <section class="bg-(--bg-light) py-8 md:py-12">
+    <section class="bg-[var(--bg-light)] py-8 md:py-12">
 
         <div class="container mx-auto px-4">
 
-            {{-- Category Navigation --}}
-            <div class="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            {{-- ================= ARTICLE ================= --}}
+            <div class="grid gap-8 lg:grid-cols-3">
 
-                <div>
-                    <span>
-                        प्रकाशित मितिः <span id="c_date"></span>
-                    </span>
-                </div>
+                {{-- ================= MAIN ARTICLE ================= --}}
+                <main class="lg:col-span-2">
 
-                <div class="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <article class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
 
-                    {{-- Category Title --}}
-                    <div class="flex items-center gap-3">
-                        <span class="h-8 w-1 rounded-full bg-(--secondary)"></span>
+                        {{-- Article Header --}}
+                        <header class="px-5 pt-6 sm:px-8 sm:pt-8">
 
-                        <div>
-                            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">
-                                Category
-                            </p>
+                            {{-- Category --}}
+                            <div class="mb-4 flex flex-wrap items-center gap-2">
 
-                            <h1 class="text-2xl font-extrabold text-gray-900">
+                                <span class="h-1 w-8 rounded-full bg-[var(--secondary)]"></span>
+
+                                @foreach ($article->categories as $category)
+
+                                    <span class="text-sm font-bold uppercase tracking-wider text-[var(--secondary)]">
+                                        {{ $category->title }}
+                                    </span>
+
+                                @endforeach
+
+                            </div>
+
+
+                            {{-- Title --}}
+                            <h1
+                                class="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
+
                                 {{ $article->name }}
+
                             </h1>
+
+
+                            {{-- Published Date --}}
+                            <div
+                                class="mt-5 flex items-center gap-2 border-b border-gray-100 pb-5 text-sm text-gray-500">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="h-4 w-4">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M6.75 3v2.25M17.25 3v2.25M3.75 8.25h16.5M5.25 5.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25A2.25 2.25 0 0 1 18.75 21H5.25A2.25 2.25 0 0 1 3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25Z" />
+
+                                </svg>
+
+                                <span>
+                                    प्रकाशित मितिः
+                                </span>
+
+                                <strong id="c_date" class="font-semibold text-gray-700">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+                        </header>
+
+
+                        {{-- Featured Image --}}
+                        <div class="px-5 pt-5 sm:px-8">
+
+                            <div class="overflow-hidden rounded-xl">
+
+                                <img
+                                    src="{{ asset(Storage::url($article->image)) }}"
+                                    alt="{{ $article->name }}"
+                                    class="h-auto max-h-[600px] w-full object-cover">
+
+                            </div>
+
                         </div>
-                    </div>
-
-                    {{-- Category Navigation --}}
-                    <nav class="flex flex-wrap items-center gap-2">
-
-                        <a href="#"
-                            class="rounded-full bg-(--bg-secondary) px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-(--secondary) hover:text-white">
-                            सबै
-                        </a>
-
-                        <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
-                            नयाँ
-                        </a>
-
-                        <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
-                            चर्चित
-                        </a>
-
-                        <a href="#"
-                            class="rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
-                            लोकप्रिय
-                        </a>
-
-                    </nav>
-
-                </div>
-
-                {{-- Bottom Accent --}}
-                <div class="h-1 bg-(--secondary)"></div>
-
-            </div>
 
 
-            {{-- Main Content --}}
-            <div class="grid gap-8 md:grid-cols-3">
+                        {{-- ================= ARTICLE CONTENT ================= --}}
+                        <div class="px-5 py-6 sm:px-8 sm:py-8">
 
-                {{-- Articles --}}
-                <div class="space-y-5 md:col-span-2">
+                            <div class="prose prose-lg max-w-none text-gray-700">
 
-                    @foreach ($article->categories as $category)
-                        @foreach ($category->articles()->where('articles.id', '!=', $article->id)->latest()->limit(3)->get() as $relatedArticle)
-                            <article
-                                class="group flex overflow-hidden rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                                {!! $article->description !!}
 
-                                {{-- Image --}}
-                                <a href="#" class="shrink-0 overflow-hidden rounded-lg">
+                            </div>
 
-                                    <img src="{{ asset(Storage::url($relatedArticle->image)) }}"
-                                        alt="{{ $relatedArticle->title }}"
-                                        class="h-28 w-36 object-cover transition duration-500 group-hover:scale-105 sm:h-32 sm:w-44">
-
-                                </a>
+                        </div>
 
 
-                                {{-- Content --}}
-                                <div class="ml-4 flex min-w-0 flex-1 flex-col justify-center">
+                        {{-- Bottom Accent --}}
+                        <div class="h-1 bg-[var(--secondary)]"></div>
 
-                                    {{-- Date / Category --}}
-                                    <div class="mb-1 flex items-center gap-2 text-xs text-gray-400">
+                    </article>
 
-                                        <span>
-                                            {{ $category->title }}
-                                        </span>
-
-                                        <span>•</span>
-
-                                        <span>
-                                            {{ $relatedArticle->created_at->format('M d, Y') }}
-                                        </span>
-
-                                    </div>
+                </main>
 
 
-                                    {{-- Title --}}
-                                    <a href="#">
+                {{-- ================= SIDEBAR ================= --}}
+                <aside class="space-y-6">
 
-                                        <h3
-                                            class="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition duration-200 group-hover:text-(--secondary)">
+                    {{-- ================= ADVERTISEMENT ================= --}}
+                    @foreach ($advertise->take(1) as $ad)
 
-                                            {{ $relatedArticle->name }}
+                        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
-                                        </h3>
+                            <div class="border-b border-gray-100 px-4 py-3">
+
+                                <p class="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                                    Advertisement
+                                </p>
+
+                            </div>
+
+                            <a
+                                href="{{ $ad->redirect_link }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group block overflow-hidden">
+
+                                <img
+                                    src="{{ asset(Storage::url($ad->banner)) }}"
+                                    alt="{{ $ad->company_name }}"
+                                    class="w-full object-cover transition duration-500 group-hover:scale-[1.02]">
+
+                            </a>
+
+                        </div>
+
+                    @endforeach
+
+
+                    {{-- ================= RELATED ARTICLES ================= --}}
+                    <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+
+                        <div class="mb-4 flex items-center gap-3 border-b border-gray-100 pb-3">
+
+                            <span class="h-6 w-1 rounded-full bg-[var(--secondary)]"></span>
+
+                            <h2 class="text-lg font-bold text-gray-900">
+                                सम्बन्धित समाचार
+                            </h2>
+
+                        </div>
+
+
+                        <div class="space-y-4">
+
+                            @foreach ($article->categories as $category)
+
+                                @foreach ($category->articles()
+                                    ->where('articles.id', '!=', $article->id)
+                                    ->latest()
+                                    ->limit(4)
+                                    ->get() as $relatedArticle)
+
+                                    <a
+                                        href="{{ route('article', $relatedArticle->slug) }}"
+                                        class="group flex gap-3 border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+
+                                        {{-- Image --}}
+                                        <div class="shrink-0 overflow-hidden rounded-lg">
+
+                                            <img
+                                                src="{{ asset(Storage::url($relatedArticle->image)) }}"
+                                                alt="{{ $relatedArticle->name }}"
+                                                class="h-20 w-24 object-cover transition duration-300 group-hover:scale-105">
+
+                                        </div>
+
+
+                                        {{-- Content --}}
+                                        <div class="min-w-0">
+
+                                            <h3
+                                                class="line-clamp-3 text-sm font-bold leading-snug text-gray-800 transition group-hover:text-[var(--secondary)]">
+
+                                                {{ $relatedArticle->name }}
+
+                                            </h3>
+
+                                            {{-- Related Article Date --}}
+                                            <p
+                                                class="mt-1 text-xs text-gray-400"
+                                                data-nepali-date="{{ $relatedArticle->created_at->format('Y-m-d') }}">
+
+                                                {{ $relatedArticle->created_at->format('M d, Y') }}
+
+                                            </p>
+
+                                        </div>
 
                                     </a>
 
+                                @endforeach
 
-                                    {{-- Description --}}
-                                    <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-500">
+                            @endforeach
 
-                                        {{ $relatedArticle->description }}
+                        </div>
 
-                                    </p>
-
-                                </div>
-
-                            </article>
-                        @endforeach
-                    @endforeach
-
-                </div>
-
-
-                {{-- Advertisement --}}
-                <aside class="space-y-5">
-
-                    @foreach ($advertise->take(1) as $ad)
-                        <a href="{{ $ad->redirect_link }}" target="_blank"
-                            class="group block overflow-hidden rounded-xl bg-white shadow-sm">
-
-                            <img src="{{ asset(Storage::url($ad->banner)) }}" alt="{{ $ad->company_name }}"
-                                class="w-full object-cover transition duration-300 group-hover:scale-[1.02]">
-
-                        </a>
-                    @endforeach
+                    </div>
 
                 </aside>
 
@@ -153,25 +219,58 @@
 
     </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
 
-        const c_date = document.getElementById('c_date');
+    {{-- ================= NEPALI DATE ================= --}}
+    <script>
 
-        if (c_date && window.NepaliCalendar) {
+        document.addEventListener('DOMContentLoaded', function () {
 
-            const adDateString = @json($article->created_at->format('Y-m-d'));
+            /*
+             * Main article date
+             */
+            const cDate = document.getElementById('c_date');
 
-            const adDate = new Date(adDateString);
+            if (cDate && window.NepaliCalendar) {
 
-            const bsDate = NepaliCalendar.adToBs(adDate);
+                const adDateString = @json(
+                    $article->created_at->format('Y-m-d')
+                );
 
-            const nepaliDate = NepaliCalendar.formatBs(bsDate, 'ne');
+                const adDate = new Date(adDateString);
 
-            c_date.textContent = nepaliDate;
-        }
+                const bsDate = NepaliCalendar.adToBs(adDate);
 
-    });
-</script>
+                const nepaliDate = NepaliCalendar.formatBs(bsDate, 'ne');
+
+                cDate.textContent = nepaliDate;
+            }
+
+
+            /*
+             * Related article dates
+             */
+            if (window.NepaliCalendar) {
+
+                document
+                    .querySelectorAll('[data-nepali-date]')
+                    .forEach(function (element) {
+
+                        const adDateString = element.dataset.nepaliDate;
+
+                        const adDate = new Date(adDateString);
+
+                        const bsDate = NepaliCalendar.adToBs(adDate);
+
+                        const nepaliDate = NepaliCalendar.formatBs(bsDate, 'ne');
+
+                        element.textContent = nepaliDate;
+
+                    });
+
+            }
+
+        });
+
+    </script>
 
 </x-frontend-layout>

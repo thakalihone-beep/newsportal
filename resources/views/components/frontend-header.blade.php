@@ -42,6 +42,13 @@
             <!-- Navigation Links -->
             <ul class="flex items-center gap-1 overflow-x-auto whitespace-nowrap">
 
+                <li>
+                        <a href="/"
+                            class="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10 hover:text-blue-400">
+                            गृहपृष्ठ
+                        </a>
+                    </li>
+
                 @foreach ($categories as $category)
                     <li>
                         <a href="{{route('category', $category->slug)}}"

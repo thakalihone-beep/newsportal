@@ -7,7 +7,8 @@
             {{-- ================= CATEGORY HEADER ================= --}}
             <div class="mb-8">
 
-                <div class="flex flex-col gap-4 border-b-2 border-[var(--secondary)] pb-3 sm:flex-row sm:items-end sm:justify-between">
+                <div
+                    class="flex flex-col gap-4 border-b-2 border-[var(--secondary)] pb-3 sm:flex-row sm:items-end sm:justify-between">
 
                     {{-- Category Title --}}
                     <div class="flex items-center gap-3">
@@ -15,6 +16,7 @@
                         <span class="h-10 w-1 rounded-full bg-[var(--secondary)]"></span>
 
                         <div>
+
                             <span class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
                                 Category
                             </span>
@@ -22,35 +24,10 @@
                             <h1 class="mt-1 text-2xl font-extrabold leading-none text-gray-900 md:text-3xl">
                                 {{ $category->title }}
                             </h1>
+
                         </div>
 
                     </div>
-
-
-                    {{-- Category Navigation --}}
-                    <nav class="flex flex-wrap items-center gap-1">
-
-                        <a href="#"
-                            class="rounded-md bg-[var(--secondary)] px-3 py-2 text-sm font-semibold text-white transition hover:opacity-90">
-                            सबै
-                        </a>
-
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
-                            नयाँ
-                        </a>
-
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
-                            चर्चित
-                        </a>
-
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white hover:text-gray-900">
-                            लोकप्रिय
-                        </a>
-
-                    </nav>
 
                 </div>
 
@@ -88,7 +65,8 @@
                                 <div class="flex min-w-0 flex-1 flex-col justify-center">
 
                                     {{-- Meta --}}
-                                    <div class="mb-1.5 flex flex-wrap items-center gap-2 text-xs text-gray-400">
+                                    <div
+                                        class="mb-1.5 flex flex-wrap items-center gap-2 text-xs text-gray-400">
 
                                         <span class="font-medium text-[var(--secondary)]">
                                             {{ $category->title }}
@@ -113,9 +91,10 @@
 
 
                                     {{-- Description --}}
-                                    <p class="mt-1.5 line-clamp-2 text-xs leading-relaxed text-gray-500 sm:text-sm">
+                                    <p
+                                        class="mt-1.5 line-clamp-2 text-xs leading-relaxed text-gray-500 sm:text-sm">
 
-                                        {{ $article->description }}
+                                        {{ Str::limit(strip_tags(html_entity_decode($article->description)), 150) }}
 
                                     </p>
 
@@ -127,7 +106,8 @@
 
                     @empty
 
-                        <div class="rounded-xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center">
+                        <div
+                            class="rounded-xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center">
 
                             <h2 class="text-lg font-semibold text-gray-700">
                                 कुनै समाचार भेटिएन
@@ -149,12 +129,16 @@
 
                     @foreach ($advertise->take(1) as $ad)
 
-                        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                        <div
+                            class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
                             <div class="border-b border-gray-100 px-4 py-2">
 
-                                <p class="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400">
+                                <p
+                                    class="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400">
+
                                     Advertisement
+
                                 </p>
 
                             </div>
