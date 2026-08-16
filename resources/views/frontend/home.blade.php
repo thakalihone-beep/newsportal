@@ -25,7 +25,7 @@
                         </h2>
 
                         <img
-                            src="{{ asset(Storage::url($article->image)) }}"
+                            src="{{ asset('storage/'.$article->image) }}"
                             alt="{{ $article->name }}"
                             class="mx-auto mt-4 h-95 w-full rounded-lg object-cover"
                         >
@@ -116,7 +116,7 @@
                                             <div class="shrink-0 overflow-hidden rounded-md">
 
                                                 <img
-                                                    src="{{ asset(Storage::url($article->image)) }}"
+                                                    src="{{ asset('storage/'.$article->image) }}"
                                                     alt="{{ $article->name }}"
                                                     class="h-24 w-28 object-cover transition duration-300 group-hover:scale-105 sm:h-28 sm:w-32"
                                                 >
@@ -215,7 +215,7 @@
                                 class="relative block overflow-hidden">
 
                                 <img
-                                    src="{{ asset(Storage::url($article->image)) }}"
+                                    src="{{ asset('storage/'.$article->image) }}"
                                     alt="{{ $article->name }}"
                                     class="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
                                 >

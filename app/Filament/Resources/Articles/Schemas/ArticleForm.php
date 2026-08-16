@@ -8,8 +8,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
 class ArticleForm
@@ -48,13 +48,14 @@ class ArticleForm
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                     Textarea::make('slug')
                         ->required(),
                     RichEditor::make('description')
                         ->columnSpanFull()
                         ->required(),
                     FileUpload::make('image')
+                        ->disk('public')
                         ->image()
                         ->required(),
                 ])->columnSpanFull()->columns(2)->label('Article Details'),

@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@props(['title', 'meta_description', 'meta_keyword', 'image'])
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{$title ?? 'NewsHub | Home'}}</title>
+    <meta name="description" content="{{ $meta_description ?? '' }}">
+    <meta name="keyword" content="{{ $meta_keyword ?? '' }}">
+
+    <meta property="og::title" content="{{ $title ?? '' }}">
+    <meta property="og::description" content="{{ $meta_description ?? '' }}">
+    <meta property="og::image" content="{{ $image ?? '' }}">
+    <meta property="og::url" content="{{ url()->current() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/main.css') }}">
@@ -51,6 +60,8 @@
             });
         }
     </script>
+
+    @stack("scripts")
 
 
 </body>

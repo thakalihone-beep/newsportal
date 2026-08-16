@@ -1,4 +1,4 @@
-<x-frontend-layout>
+<x-frontend-layout title="{{ $article->meta_title}}"  meta_description="{{ $article->meta_description }}" meta_keyword="{{ $article->meta_keywords }}" imaga="{{ asset(Stroage::url($article->image))}}">
 
     <section class="bg-[var(--bg-light)] py-8 md:py-12">
 
@@ -78,7 +78,7 @@
                             <div class="overflow-hidden rounded-xl">
 
                                 <img
-                                    src="{{ asset(Storage::url($article->image)) }}"
+                                    src="{{ asset('storage/'.$article->image) }}"
                                     alt="{{ $article->name }}"
                                     class="h-auto max-h-[600px] w-full object-cover">
 
@@ -130,7 +130,7 @@
                                 class="group block overflow-hidden">
 
                                 <img
-                                    src="{{ asset(Storage::url($ad->banner)) }}"
+                                    src="{{ asset('storage/'.$ad->banner) }}"
                                     alt="{{ $ad->company_name }}"
                                     class="w-full object-cover transition duration-500 group-hover:scale-[1.02]">
 
@@ -173,7 +173,7 @@
                                         <div class="shrink-0 overflow-hidden rounded-lg">
 
                                             <img
-                                                src="{{ asset(Storage::url($relatedArticle->image)) }}"
+                                                src="{{ asset('storage/'.$relatedArticle->image) }}"
                                                 alt="{{ $relatedArticle->name }}"
                                                 class="h-20 w-24 object-cover transition duration-300 group-hover:scale-105">
 
@@ -221,6 +221,8 @@
 
 
     {{-- ================= NEPALI DATE ================= --}}
+   @push('scripts')
+
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -272,5 +274,7 @@
         });
 
     </script>
+
+   @endpush
 
 </x-frontend-layout>

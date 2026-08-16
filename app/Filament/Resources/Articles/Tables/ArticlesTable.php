@@ -15,12 +15,14 @@ class ArticlesTable
     public static function configure(Table $table): Table
     {
         return $table
-        ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
                     ->limit(50),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('public')
+                    ->visibility('public'),
                 ToggleColumn::make('status')
                     ->sortable()
                     ->toggleable(),

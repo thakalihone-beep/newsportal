@@ -14,9 +14,11 @@ class AdvertisesTable
     public static function configure(Table $table): Table
     {
         return $table
-        ->defaultSort('expire_date', 'desc')
+            ->defaultSort('expire_date', 'desc')
             ->columns([
-                ImageColumn::make('banner'),
+                ImageColumn::make('banner')
+                    ->disk('public')
+                    ->visibility('public'),
                 TextColumn::make('redirect_link')
                     ->searchable(),
                 TextColumn::make('expire_date')

@@ -1,4 +1,4 @@
-<x-frontend-layout title="{{ $category->meta_title }}"  meta_description="{{ $category->meta_description}}" meta_keyword="{{ $category->meta_keywords}}" imaga="">
+<x-frontend-layout title="Search For {{ $query }}" meta_description="" meta_keyword="" imaga="">
 
     <section class="bg-[var(--bg-light)] py-8 md:py-12">
 
@@ -22,7 +22,7 @@
                             </span>
 
                             <h1 class="mt-1 text-2xl font-extrabold leading-none text-gray-900 md:text-3xl">
-                                {{ $category->title }}
+                                Result For {{ $query }}
                             </h1>
 
                         </div>
@@ -41,7 +41,7 @@
                 {{-- ================= ARTICLES ================= --}}
                 <div class="space-y-4 lg:col-span-2">
 
-                    @forelse ($category->articles()->latest()->get() as $article)
+                    @forelse ($articles as $article)
 
                         <article
                             class="group overflow-hidden rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
@@ -69,7 +69,7 @@
                                         class="mb-1.5 flex flex-wrap items-center gap-2 text-xs text-gray-400">
 
                                         <span class="font-medium text-[var(--secondary)]">
-                                            {{ $category->title }}
+                                            {{ $article->categories->first()?->title ?? 'News' }}
                                         </span>
 
                                         <span>•</span>

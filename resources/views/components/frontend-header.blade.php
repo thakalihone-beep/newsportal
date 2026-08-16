@@ -62,7 +62,7 @@
 
 
             <!-- Desktop Search -->
-            <form action="/search" method="GET" class="relative w-48 lg:w-64 shrink-0">
+            <form action="{{route('search')}}" method="GET" class="relative w-48 lg:w-64 shrink-0">
 
                 <input type="text" name="q" placeholder="Search news..."
                     class="w-full rounded-full bg-white/10 border border-white/20 py-2 pl-4 pr-10 text-sm text-white placeholder:text-slate-300 focus:border-(--secondary) focus:outline-none focus:ring-2 focus:ring-(--secondary)">

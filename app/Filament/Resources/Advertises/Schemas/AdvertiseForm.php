@@ -21,10 +21,11 @@ class AdvertiseForm
                     ->required(),
                 DatePicker::make('expire_date')
                     ->required(),
-                    FileUpload::make('banner')
-                    ->required()
+                FileUpload::make('banner')
+                    ->disk('public')
                     ->directory('ads')
-                    ->image(),
+                    ->image()
+                    ->required(),
             ]);
     }
 }
