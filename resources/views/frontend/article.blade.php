@@ -1,4 +1,4 @@
-<x-frontend-layout title="{{ $article->meta_title}}"  meta_description="{{ $article->meta_description }}" meta_keyword="{{ $article->meta_keywords }}" imaga="{{ asset(Stroage::url($article->image))}}">
+<x-frontend-layout title="{{ $article->meta_title}}"  meta_description="{{ $article->meta_description }}" meta_keyword="{{ $article->meta_keywords }}" imaga="{{ asset(Storage::url($article->image))}}">
 
     <section class="bg-[var(--bg-light)] py-8 md:py-12">
 
